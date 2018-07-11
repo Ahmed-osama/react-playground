@@ -26,29 +26,14 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 2
+        totalPrice: 2,
+        purchasable: false
     }
-    addIngredientsHandler(type) {
 
+    updateIngredientsHandler(operation = "add", type) {
+        let op = operation === 'add' ? 1 : -1
         let oldCount = this.state.ingredients[type]
-        let newCount = oldCount + 1
-        let updatedIngredients = {
-            ...this.state.ingredients
-        }
-        updatedIngredients[type] = newCount
-
-        let priceAddition = INGREDIENTS_PRICES[type]
-        let oldPrice = this.state.totalPrice
-        let newPrice = oldPrice + priceAddition
-        this.setState({
-            ingredients: updatedIngredients,
-            totalPrice: newPrice
-        })
-    }
-    removeIngredientsHandler(type) {
-
-        let oldCount = this.state.ingredients[type]
-        let newCount = oldCount - 1
+        let newCount = oldCount + 1 * op
         if (newCount < 0) return
         let updatedIngredients = {
             ...this.state.ingredients
@@ -57,11 +42,16 @@ class BurgerBuilder extends Component {
 
         let priceAddition = INGREDIENTS_PRICES[type]
         let oldPrice = this.state.totalPrice
-        let newPrice = oldPrice - priceAddition
+        let newPrice = oldPrice + priceAddition * op
         this.setState({
             ingredients: updatedIngredients,
-            totalPrice: newPrice
+            totalPrice: newPrice,
+            purchasable: this.isPurchasable(updatedIngredients)
         })
+    }
+    isPurchasable(ingredients) {
+        return Object.values(ingredients).some(el => el > 0)
+
     }
     render() {
         const disabledInfo = {
@@ -70,14 +60,16 @@ class BurgerBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
+        let { totalPrice, purchasable } = this.state
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
-                    ingredientAdded={this.addIngredientsHandler.bind(this)}
-                    ingredientRemove={this.removeIngredientsHandler.bind(this)}
+                    ingredientAdded={this.updateIngredientsHandler.bind(this, 'add')}
+                    ingredientRemove={this.updateIngredientsHandler.bind(this, 'min')}
                     lessDisabledTypes={disabledInfo}
-                    price={this.state.totalPrice}
+                    price={totalPrice}
+                    purchasable={purchasable}
                 />
             </Aux>
         )
