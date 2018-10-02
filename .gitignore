@@ -2,12 +2,15 @@
 
 # dependencies
 /node_modules
+/burger-builder/node_modules
 
 # testing
 /coverage
+/burger-builder/coverage
 
 # production
 /build
+/burger-builder/build
 
 # misc
 .DS_Store
@@ -15,7 +18,15 @@
 .env.development.local
 .env.test.local
 .env.production.local
+/burger-builder/.DS_Store
+/burger-builder/.env.local
+/burger-builder/.env.development.local
+/burger-builder/.env.test.local
+/burger-builder/.env.production.local
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/burger-builder/npm-debug.log*
+/burger-builder/yarn-debug.log*
+/burger-builder/yarn-error.log*
