@@ -10,7 +10,7 @@ class Burger extends Component {
     render() {
 
         let transformedIngredients = Object.keys(this.props.ingredients).map(type => {
-            console.log(type)
+          
             return [...Array(this.props.ingredients[type])].map((ingredient, i) => {
                 return <BurgerIngredient key={type + '-' + i} type={type} />
             })
