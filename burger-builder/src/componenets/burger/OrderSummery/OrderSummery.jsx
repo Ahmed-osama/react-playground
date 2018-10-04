@@ -9,6 +9,7 @@ const OrderSummery = props => {
         <ul>
             {ingredients}
         </ul>
+        <p>tootal price : <strong>{props.totalPrice.toFixed(2)}</strong></p>
         <Btn  btnType="Danger" clicked={props.cancel}>cancel</Btn>
         <Btn btnType="Success" clicked={props.confirm}>continue</Btn>
     </Aux>
