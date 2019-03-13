@@ -30,3 +30,5 @@ yarn-error.log*
 /burger-builder/npm-debug.log*
 /burger-builder/yarn-debug.log*
 /burger-builder/yarn-error.log*
+
+/react-advanced-patterns/node_modules
